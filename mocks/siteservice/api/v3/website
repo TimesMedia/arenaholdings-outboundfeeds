@@ -1,7 +1,128 @@
 [
   {
-    "_id": "localhost",
-    "display_name": "localhost",
+    "_id": "businessday",
+    "display_name": "Business Day",
+    "base_path": "https://www.businessday.co.za",
+    "domains": [
+      "businessday.co.za"
+    ],
+    "default_language": "",
+    "is_default_website": false
+  },
+  {
+    "_id": "businesslive",
+    "display_name": "BusinessLIVE",
+    "base_path": "https://www.businesslive.co.za",
+    "domains": [
+      "businesslive.co.za"
+    ],
+    "default_language": ""
+  },
+  {
+    "_id": "dailydispatch",
+    "display_name": "Daily Dispatch",
+    "base_path": "https://www.dailydispatch.co.za",
+    "domains": [
+      "dailydispatch.co.za"
+    ],
+    "default_language": "",
+    "is_default_website": false
+  },
+  {
+    "_id": "financialmail",
+    "display_name": "Financial Mail",
+    "base_path": "https://www.financialmail.co.za",
+    "domains": [
+      "financialmail.co.za"
+    ],
+    "default_language": "",
+    "is_default_website": false
+  },
+  {
+    "_id": "newarc",
+    "display_name": "Mims",
+    "base_path": "https://newdevops-sandbox.cdn.arcpublishing.com",
+    "domains": [],
+    "default_language": "",
+    "is_default_website": false
+  },
+  {
+    "_id": "sowetan",
+    "display_name": "Sowetan",
+    "base_path": "https://www.sowetan.co.za",
+    "domains": [
+      "sowetan.co.za"
+    ],
+    "default_language": ""
+  },
+  {
+    "_id": "sowetanlive",
+    "display_name": "SowetanLIVE",
+    "base_path": "https://www.sowetanlive.co.za",
+    "domains": [
+      "sowetanlive.co.za"
+    ],
+    "default_language": "",
+    "is_default_website": false
+  },
+  {
+    "_id": "sundaytimes",
+    "display_name": "Sunday Times",
+    "base_path": "https://www.sundaytimes.co.za",
+    "domains": [
+      "sundaytimes.co.za",
+      "timeslive.sundaytimes.co.za"
+    ],
+    "default_language": "",
+    "is_default_website": false
+  },
+  {
+    "_id": "theherald",
+    "display_name": "The Herald",
+    "base_path": "https://www.theherald.co.za",
+    "domains": [
+      "theherald.co.za"
+    ],
+    "default_language": "",
+    "is_default_website": false
+  },
+  {
+    "_id": "thehomechanel",
+    "display_name": "The Home Channel",
+    "base_path": "https://thehomechannel.co.za",
+    "domains": [
+      "thehomechannel.co.za"
+    ],
+    "default_language": "",
+    "is_default_website": false
+  },
+  {
+    "_id": "timeslive",
+    "display_name": "TimesLIVE",
+    "base_path": "https://www.timeslive.co.za",
+    "domains": [
+      "timeslive.co.za"
+    ],
     "is_default_website": true
+  },
+  {
+    "_id": "wanted",
+    "display_name": "Wanted Online",
+    "base_path": "https://www.wantedonline.co.za",
+    "domains": [
+      "wantedonline.co.za"
+    ],
+    "default_language": "",
+    "is_default_website": false
+  },
+  {
+    "_id": "acrdevtraining",
+    "display_name": "arcdevtraining",
+    "base_path": "https://devtraining-arcdevtraining-sandbox.cdn.arcpublishing.com",
+    "domains": [
+      "arcdevtraining.com"
+    ],
+    "default_language": "",
+    "is_default_website": false
   }
 ]
