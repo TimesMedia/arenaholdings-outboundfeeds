@@ -36,20 +36,76 @@
       }
     },
     "sites": {
-      "website1": {
+      "timeslive": {
         "siteProperties": {
-          "feedDomainURL": "https://www.website1.com",
-          "resizerURL": "https://www.website1.com/resizer/v2/",
-          "feedTitle": "wwebsite 1",
+          "feedDomainURL": "https://www.timeslive.co.za",
+          "resizerURL": "https://www.timeslive.co.za/resizer/v2",
+          "feedTitle": "TimesLive",
           "feedLanguage": "en"
         }
       },
-      "website2": {
+      "sundaytimes": {
         "siteProperties": {
-          "feedDomainURL": "https://www.website2.com",
-          "resizerURL": "https://www.website2.com/resizer/v2/",
-          "feedTitle": "website 2",
-          "feedLanguage": "es"
+          "feedDomainURL": "https://www.sundaytimes.co.za",
+          "resizerURL": "https://www.sundaytimes.co.za/resizer/v2",
+          "feedTitle": "SundayTimes",
+          "feedLanguage": "en"
+        }
+      },
+      "sowetanlive": {
+        "siteProperties": {
+          "feedDomainURL": "https://www.sowetanlive.co.za",
+          "resizerURL": "https://www.sowetanlive.co.za/resizer/v2",
+          "feedTitle": "SowetanLive",
+          "feedLanguage": "en"
+        }
+      },
+      "sowetan": {
+        "siteProperties": {
+          "websiteDomain": "https://www.sowetan.co.za",
+          "resizerURL": "https://www.sowetan.co.za/resizer/v2",
+          "feedTitle": "Sowetan",
+          "feedLanguage": "en"
+        }
+      },
+      "businessday": {
+        "siteProperties": {
+          "websiteDomain": "https://www.businessday.co.za",
+          "resizerURL": "https://www.businessday.co.za/resizer/v2",
+          "feedTitle": "BusinessDay",
+          "feedLanguage": "en"
+        }
+      },
+      "financialmail": {
+        "siteProperties": {
+          "websiteDomain": "https://www.financialmail.co.za",
+          "resizerURL": "https://www.financialmail.co.za/resizer/v2",
+          "feedTitle": "FinancialMail",
+          "feedLanguage": "en"
+        }
+      },
+      "dailydispatch": {
+        "siteProperties": {
+          "websiteDomain": "https://www.dailydispatch.co.za",
+          "resizerURL": "https://www.dailydispatch.co.za/resizer/v2",
+          "feedTitle": "DailyDispatch",
+          "feedLanguage": "en"
+        }
+      },
+      "theherald": {
+        "siteProperties": {
+          "websiteDomain": "https://www.theherald.co.za",
+          "resizerURL": "https://www.theherald.co.za/resizer/v2",
+          "feedTitle": "The Herald",
+          "feedLanguage": "en"
+        }
+      },
+      "wanted": {
+        "siteProperties": {
+          "websiteDomain": "https://www.wantedonline.co.za",
+          "resizerURL": "https://www.wantedonline.co.za/resizer/v2",
+          "feedTitle": "WantedOnline",
+          "feedLanguage": "en"
         }
       }
     }
