@@ -29,8 +29,6 @@
   "values": {
     "default": {
       "siteProperties": {
-        "feedDomainURL": "http://localhost",
-        "resizerURL": "http://localhost/resizer/v2",
         "feedTitle": "Outbound Feeds",
         "feedLanguage": "en"
       }
@@ -38,72 +36,64 @@
     "sites": {
       "timeslive": {
         "siteProperties": {
-          "feedDomainURL": "https://www.timeslive.co.za",
-          "resizerURL": "https://www.timeslive.co.za/resizer/v2",
+          "feedDomainURL": "https://arenaholdings-timeslive-sandbox.web.arc-cdn.net",
+          "resizerURL": "https://arenaholdings-timeslive-sandbox.web.arc-cdn.net/resizer/v2",
           "feedTitle": "TimesLive",
           "feedLanguage": "en"
         }
       },
       "sundaytimes": {
         "siteProperties": {
-          "feedDomainURL": "https://www.sundaytimes.co.za",
-          "resizerURL": "https://www.sundaytimes.co.za/resizer/v2",
+          "feedDomainURL": "https://arenaholdings-sundaytimes-sandbox.web.arc-cdn.net",
+          "resizerURL": "https://arenaholdings-sundaytimes-sandbox.web.arc-cdn.net/resizer/v2",
           "feedTitle": "SundayTimes",
-          "feedLanguage": "en"
-        }
-      },
-      "sowetanlive": {
-        "siteProperties": {
-          "feedDomainURL": "https://www.sowetanlive.co.za",
-          "resizerURL": "https://www.sowetanlive.co.za/resizer/v2",
-          "feedTitle": "SowetanLive",
           "feedLanguage": "en"
         }
       },
       "sowetan": {
         "siteProperties": {
-          "websiteDomain": "https://www.sowetan.co.za",
-          "resizerURL": "https://www.sowetan.co.za/resizer/v2",
+          "websiteDomain": "https://arenaholdings-sowetan-sandbox.web.arc-cdn.net",
+          "resizerURL": "https://arenaholdings-sowetan-sandbox.web.arc-cdn.net/resizer/v2",
           "feedTitle": "Sowetan",
           "feedLanguage": "en"
         }
       },
       "businessday": {
         "siteProperties": {
-          "websiteDomain": "https://www.businessday.co.za",
-          "resizerURL": "https://www.businessday.co.za/resizer/v2",
+          "websiteDomain": "https://arenaholdings-businessday-sandbox.web.arc-cdn.net",
+          "resizerURL": "https://arenaholdings-businessday-sandbox.web.arc-cdn.net/resizer/v2",
           "feedTitle": "BusinessDay",
           "feedLanguage": "en"
         }
       },
       "financialmail": {
         "siteProperties": {
-          "websiteDomain": "https://www.financialmail.co.za",
-          "resizerURL": "https://www.financialmail.co.za/resizer/v2",
+          "websiteDomain": "https://arenaholdings-financialmail-sandbox.web.arc-cdn.net",
+          "resizerURL": "https://arenaholdings-financialmail-sandbox.web.arc-cdn.net/resizer/v2",
           "feedTitle": "FinancialMail",
           "feedLanguage": "en"
         }
       },
       "dailydispatch": {
         "siteProperties": {
-          "websiteDomain": "https://www.dailydispatch.co.za",
-          "resizerURL": "https://www.dailydispatch.co.za/resizer/v2",
+          "websiteDomain": "https://arenaholdings-dailydispatch-sandbox.web.arc-cdn.net",
+          "resizerURL": "https://arenaholdings-dailydispatch-sandbox.web.arc-cdn.net/resizer/v2",
           "feedTitle": "DailyDispatch",
           "feedLanguage": "en"
         }
       },
       "theherald": {
         "siteProperties": {
-          "websiteDomain": "https://www.theherald.co.za",
-          "resizerURL": "https://www.theherald.co.za/resizer/v2",
+          "websiteDomain": "https://arenaholdings-theherald-sandbox.web.arc-cdn.net",
+          "resizerURL": "https://arenaholdings-theherald-sandbox.web.arc-cdn.net/resizer/v2",
           "feedTitle": "The Herald",
           "feedLanguage": "en"
         }
       },
       "wanted": {
         "siteProperties": {
-          "websiteDomain": "https://www.wantedonline.co.za",
-          "resizerURL": "https://www.wantedonline.co.za/resizer/v2",
+          "websiteDomain": "https://arenaholdings-wanted-sandbox.web.arc-cdn.net",
+          "resizerURL": "https://arenaholdings-wanted-sandbox.web.arc-cdn.net/resizer/v2",
           "feedTitle": "WantedOnline",
           "feedLanguage": "en"
         }
