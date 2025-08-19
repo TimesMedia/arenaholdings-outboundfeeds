@@ -1,7 +1,23 @@
 {
+  "arrowParens": "avoid",
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "endOfLine": "lf",
+  "importOrder": [
+    "<THIRD_PARTY_MODULES>",
+    "^@arc-fusion/(.*)$",
+    "^fusion:(.*)$",
+    "^@wpmedia/(.*)$",
+    "~/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "jsxSingleQuote": false,
+  "printWidth": 120,
+  "singleAttributePerLine": false,
   "singleQuote": true,
-  "semi": false,
-  "arrowParens": "always",
+  "tabWidth": 2,
   "trailingComma": "all",
-  "jsxSingleQuote": false
+  "useTabs": false
 }

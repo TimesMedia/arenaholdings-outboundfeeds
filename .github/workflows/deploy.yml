@@ -1,0 +1,52 @@
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure path
+        run: |
+          echo "./node_modules/.bin" >> $GITHUB_PATH
+      - name: Create docker-compose alias
+        run: |
+          echo 'docker compose "$@"' \
+          | sudo tee -a /usr/local/bin/docker-compose \
+          && sudo chmod +x /usr/local/bin/docker-compose
+      - name: Checkout the code
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('package-lock.json') }}
+
+      - name: Configure .npmrc
+        run: echo "//npm.pkg.github.com/:_authToken=${NPM_TOKEN}" >> $HOME/.npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Install dependencies
+        run: |
+          npm install
+      - name: Build the PageBuilder Bundle
+        run: |
+          fusion build
+          fusion zip --rename fusion-bundle --force --compose v2
+      - name: Perform the deploy
+        uses: arcxp/deploy-action@v1
+        with:
+          org-id: ${{ secrets.ORG_ID }}
+          api-key: '${{ secrets.ARC_ACCESS_TOKEN }}'
+          api-hostname: ${{ secrets.ORG_ENV_DOMAIN }}
+          bundle-prefix: bundle
+          retry-delay: 60
+          retry-count: 10
