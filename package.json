@@ -6,15 +6,19 @@
   "main": "index.js",
   "scripts": {
     "fusion": "fusion",
+    "lint": "eslint \"**/*.{js,jsx}\"",
+    "lint:fix": "eslint \"**/*.{js,jsx}\" --fix",
     "start": "fusion start",
-    "test": "jest --verbose --coverage=true",
-    "lint": "eslint \"**/*.js\""
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "zip": "fusion zip",
+    "zip:prod": "node zip.js prod",
+    "zip:sandbox": "node zip.js sandbox"
   },
   "keywords": [],
   "author": "",
   "license": "wapo/arc",
   "devDependencies": {
-    "@arc-fusion/cli": "^2.2.4",
+    "@arc-fusion/cli": "^3.1.0",
     "@babel/eslint-parser": "^7.28.0",
     "axios": "^1.6.7",
     "dotenv": "^8.2.0",
