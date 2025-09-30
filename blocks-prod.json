@@ -28,166 +28,21 @@
   ],
   "values": {
     "default": {
-      "siteProperties": {
-        "key": "es",
-        "name": "Site Name",
-        "canonicalUrl": "http://localhost",
-        "logoSrc": "https://arc-anglerfish-arc2-prod-expressandstar-mna.s3.amazonaws.com/public/JTRYVIBKA5F7LBRNY25MBQCLU4.png",
-        "twitterHandle": "example",
-        "apester": {
-          "sdkUrl": "https://static.apester.com/js/sdk/latest/apester-sdk.js",
-          "mode": "placeholder",
-          "modeConfigurationKey": "apester-mode"
-        },
-        "facebook": {
-          "pageId": "example",
-          "appId": null
-        },
-        "userService": {
-          "url": "https://sandbox.us2.mna.io"
-        },
-        "newsletterService": {
-          "url": "https://sandbox.sloth2.mna.io",
-          "siteKey": "es"
-        },
-        "newsletter": {
-          "listId": "14ec17c24a"
-        },
-        "comments": {
-          "recaptchaSiteKey": "6Lc_82AUAAAAAOcUsWoOJ4TawL8Xr3gqD34z-DA5"
-        },
-        "directory": {
-          "searchUrl": null
-        },
-        "dfp": {
-          "mode": "placeholder",
-          "slotRoot": "/5293/MNA-ExpressandStar",
-          "modeConfigurationKey": "dfp-mode",
-          "apstag": {
-            "mode": "disabled",
-            "modeConfigurationKey": "apstag-mode"
-          }
-        },
-        "onScroll": {
-          "mode": "disabled",
-          "modeConfigurationKey": "on-scroll-mode"
-        },
-        "scribbleLive": {
-          "mode": "placeholder",
-          "modeConfigurationKey": "scribble-live-mode"
-        },
-        "teads": {
-          "mode": "disabled",
-          "pageId": null,
-          "modeConfigurationKey": "teads-mode"
-        },
-        "taboola": {
-          "mode": "placeholder",
-          "sdkUrl": "//cdn.taboola.com/libtrc/mna-network/loader.js",
-          "modeConfigurationKey": "taboola-mode"
-        },
-        "recaptcha": {
-          "siteKey": "6LeLpAgUAAAAABU-sCP7ospi3U-ronz6RID7xJ3s"
-        },
-        "googleTagManager": {
-          "mode": "disabled",
-          "id": null,
-          "modeConfigurationKey": "gtm-mode"
-        },
-        "commercialLinks": [
-          {
-            "name": "Example 1",
-            "href": "http://example.com/1",
-            "isPromoted": true,
-            "shouldOpenAsNewPage": true
-          },
-          {
-            "name": "Example 2",
-            "href": "http://example.com/2",
-            "isPromoted": false,
-            "shouldOpenAsNewPage": true
-          }
-        ],
-        "secondaryNavigation": {
-          "promos": {}
-        },
-        "footerLinks": [
-          {
-            "name": "Section 1",
-            "links": [
-              {
-                "name": "Example 1",
-                "href": "http://example.com/1",
-                "openAsNewPage": false
-              }
-            ]
-          },
-          {
-            "name": "Section 2",
-            "links": [
-              {
-                "name": "Example 1",
-                "href": "http://example.com/1",
-                "openAsNewPage": true
-              }
-            ]
-          },
-          {
-            "name": "Section 3",
-            "links": [
-              {
-                "name": "Example 1",
-                "href": "http://example.com/1",
-                "openAsNewPage": true
-              }
-            ]
-          }
-        ],
-        "footballTeams": [
-          {
-            "name": "Wolverhamton Wanderers FC",
-            "shortName": "Wolves",
-            "categoryId": "/sport/football/wolverhampton-wanderers-fc",
-            "teamId": "44",
-            "competitionId": "101"
-          }
-        ],
-        "doubleMpuFallbackPromos": [
-          {
-            "title": "Example 1",
-            "description": "Example 1.",
-            "callToActionText": "Click me",
-            "callToActionHref": "#example-1",
-            "openInNewTab": false
-          },
-          {
-            "title": "Example 2",
-            "description": "Example 2.",
-            "callToActionText": "Click me",
-            "callToActionHref": "#example-2",
-            "openInNewTab": false
-          }
-        ],
-        "sunTimesLocation": {
-          "latitude": 0,
-          "longitude": 0
-        },
-        "tideTimesLocationId": "st-helier"
-      }
+      "siteProperties": {}
     },
     "sites": {
       "timeslive": {
         "siteProperties": {
-          "feedDomainURL": "https://arenaholdings-timeslive-prod.web.arc-cdn.net",
-          "resizerURL": "https://arenaholdings-timeslive-prod.web.arc-cdn.net/resizer/v2",
+          "feedDomainURL": "https://www.timeslive.co.za",
+          "resizerURL": "https://www.timeslive.co.za/resizer/v2",
           "feedTitle": "TimesLive",
           "feedLanguage": "en"
         }
       },
       "sundaytimes": {
         "siteProperties": {
-          "feedDomainURL": "https://arenaholdings-sundaytimes-prod.web.arc-cdn.net",
-          "resizerURL": "https://arenaholdings-sundaytimes-prod.web.arc-cdn.net/resizer/v2",
+          "feedDomainURL": "https://www.sundaytimes.co.za",
+          "resizerURL": "https://www.sundaytimes.co.za/resizer/v2",
           "feedTitle": "SundayTimes",
           "feedLanguage": "en"
         }
