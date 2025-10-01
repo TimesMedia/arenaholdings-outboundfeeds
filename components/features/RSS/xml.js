@@ -144,9 +144,9 @@ const rssTemplate = (
               videoSelect,
             )) &&
             body && {
-              'content:encoded': {
-                $: body,
-              },
+              // 'content:encoded': {
+              //   $: body,
+              // },
             }),
           ...(includePromo && img && { '#': img }),
           ...(sectionName && { category: sectionName }),
