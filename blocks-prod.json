@@ -41,8 +41,8 @@
       },
       "sundaytimes": {
         "siteProperties": {
-          "feedDomainURL": "https://www.sundaytimes.co.za",
-          "resizerURL": "https://www.sundaytimes.co.za/resizer/v2",
+          "feedDomainURL": "https://www.sundaytimes.timeslive.co.za",
+          "resizerURL": "https://www.sundaytimes.timeslive.co.za/resizer/v2",
           "feedTitle": "SundayTimes",
           "feedLanguage": "en"
         }
