@@ -49,24 +49,24 @@
       },
       "sowetan": {
         "siteProperties": {
-          "websiteDomain": "https://arenaholdings-sowetan-prod.web.arc-cdn.net",
-          "resizerURL": "https://arenaholdings-sowetan-prod.web.arc-cdn.net/resizer/v2",
+          "websiteDomain": "https://www.sowetan.co.za",
+          "resizerURL": "https://www.sowetan.co.za/resizer/v2",
           "feedTitle": "Sowetan",
           "feedLanguage": "en"
         }
       },
       "businessday": {
         "siteProperties": {
-          "websiteDomain": "https://arenaholdings-businessday-prod.web.arc-cdn.net",
-          "resizerURL": "https://arenaholdings-businessday-prod.web.arc-cdn.net/resizer/v2",
+          "websiteDomain": "https://www.businessday.co.za",
+          "resizerURL": "https://www.businessday.co.za/resizer/v2",
           "feedTitle": "BusinessDay",
           "feedLanguage": "en"
         }
       },
       "financialmail": {
         "siteProperties": {
-          "websiteDomain": "https://arenaholdings-financialmail-prod.web.arc-cdn.net",
-          "resizerURL": "https://arenaholdings-financialmail-prod.web.arc-cdn.net/resizer/v2",
+          "websiteDomain": "https://financialmail.businessday.co.za",
+          "resizerURL": "https://financialmail.businessday.co.za/resizer/v2",
           "feedTitle": "FinancialMail",
           "feedLanguage": "en"
         }
