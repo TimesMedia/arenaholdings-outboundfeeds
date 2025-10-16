@@ -49,9 +49,9 @@
       },
       "sowetan": {
         "siteProperties": {
-          "websiteDomain": "https://arenaholdings-sowetan-prod.web.arc-cdn.net",
-          "feedDomainURL": "https://arenaholdings-sowetan-prod.web.arc-cdn.net",
-          "resizerURL": "https://arenaholdings-sowetan-prod.web.arc-cdn.net/resizer/v2",
+          "websiteDomain": "https://www.sowetan.co.za",
+          "feedDomainURL": "https://www.sowetan.co.za",
+          "resizerURL": "https://www.sowetan.co.za/resizer/v2",
           "feedTitle": "Sowetan",
           "feedLanguage": "en"
         }
