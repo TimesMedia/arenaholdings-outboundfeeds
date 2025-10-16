@@ -53,6 +53,7 @@
       "sowetan": {
         "siteProperties": {
           "websiteDomain": "https://arenaholdings-sowetan-sandbox.web.arc-cdn.net",
+          "feedDomainURL": "https://arenaholdings-sowetan-sandbox.web.arc-cdn.net",
           "resizerURL": "https://arenaholdings-sowetan-sandbox.web.arc-cdn.net/resizer/v2",
           "feedTitle": "Sowetan",
           "feedLanguage": "en"
