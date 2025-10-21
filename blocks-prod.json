@@ -59,6 +59,7 @@
       "businessday": {
         "siteProperties": {
           "websiteDomain": "https://www.businessday.co.za",
+          "feedDomainURL": "https://www.businessday.co.za",
           "resizerURL": "https://www.businessday.co.za/resizer/v2",
           "feedTitle": "BusinessDay",
           "feedLanguage": "en"
@@ -67,6 +68,7 @@
       "financialmail": {
         "siteProperties": {
           "websiteDomain": "https://financialmail.businessday.co.za",
+          "feedDomainURL": "https://financialmail.businessday.co.za",
           "resizerURL": "https://financialmail.businessday.co.za/resizer/v2",
           "feedTitle": "FinancialMail",
           "feedLanguage": "en"
