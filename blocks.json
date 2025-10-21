@@ -62,6 +62,7 @@
       "businessday": {
         "siteProperties": {
           "websiteDomain": "https://arenaholdings-businessday-sandbox.web.arc-cdn.net",
+          "feedDomainURL": "https://arenaholdings-businessday-sandbox.web.arc-cdn.net",
           "resizerURL": "https://arenaholdings-businessday-sandbox.web.arc-cdn.net/resizer/v2",
           "feedTitle": "BusinessDay",
           "feedLanguage": "en"
@@ -70,6 +71,7 @@
       "financialmail": {
         "siteProperties": {
           "websiteDomain": "https://arenaholdings-financialmail-sandbox.web.arc-cdn.net",
+          "feedDomainURL": "https://arenaholdings-financialmail-sandbox.web.arc-cdn.net",
           "resizerURL": "https://arenaholdings-financialmail-sandbox.web.arc-cdn.net/resizer/v2",
           "feedTitle": "FinancialMail",
           "feedLanguage": "en"
