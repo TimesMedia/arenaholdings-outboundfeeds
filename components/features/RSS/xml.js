@@ -99,6 +99,7 @@ const rssTemplate = (
         const url = `${domain}${ans.website_url || ans.canonical_url || ''}`;
         const sectionName = ans.taxonomy?.primary_section?.name;
         const sectionId = ans.taxonomy?.primary_section?._id;
+        const isSponsored = ans.owner?.sponsored;
 
         const img = PromoItems.mediaTag({
           ans,
@@ -151,6 +152,7 @@ const rssTemplate = (
           ...(includePromo && img && { '#': img }),
           ...(sectionName && { category: sectionName }),
           ...(sectionId && { 'category:id': sectionId }),
+          ...(isSponsored && { 'category:sponsored': isSponsored }),
         };
 
         return itemResult;
