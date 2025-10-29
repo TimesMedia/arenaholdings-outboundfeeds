@@ -80,7 +80,7 @@
       "dailydispatch": {
         "siteProperties": {
           "websiteDomain": "https://arenaholdings-dailydispatch-sandbox.web.arc-cdn.net",
-          "resizerURL": "https://arenaholdings-dailydispatch-sandbox.web.arc-cdn.net/resizer/v2",
+          "feedDomainURL": "https://arenaholdings-dailydispatch-sandbox.web.arc-cdn.net","resizerURL": "https://arenaholdings-dailydispatch-sandbox.web.arc-cdn.net/resizer/v2",
           "feedTitle": "DailyDispatch",
           "feedLanguage": "en"
         }
@@ -88,6 +88,7 @@
       "theherald": {
         "siteProperties": {
           "websiteDomain": "https://arenaholdings-theherald-sandbox.web.arc-cdn.net",
+          "feedDomainURL": "https://arenaholdings-theherald-sandbox.web.arc-cdn.net",
           "resizerURL": "https://arenaholdings-theherald-sandbox.web.arc-cdn.net/resizer/v2",
           "feedTitle": "The Herald",
           "feedLanguage": "en"
@@ -96,6 +97,7 @@
       "wanted": {
         "siteProperties": {
           "websiteDomain": "https://arenaholdings-wanted-sandbox.web.arc-cdn.net",
+          "feedDomainURL": "https://arenaholdings-wanted-sandbox.web.arc-cdn.net",
           "resizerURL": "https://arenaholdings-wanted-sandbox.web.arc-cdn.net/resizer/v2",
           "feedTitle": "WantedOnline",
           "feedLanguage": "en"
