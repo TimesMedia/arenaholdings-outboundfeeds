@@ -42,6 +42,7 @@ const rssTemplate = (
     channelLanguage,
     rssBuildContent,
     PromoItems,
+    isOutputContentEncoded,
   },
 ) => ({
   rss: {
@@ -144,7 +145,8 @@ const rssTemplate = (
               resizerHeight,
               videoSelect,
             )) &&
-            body && {
+            body &&
+            isOutputContentEncoded && {
               'content:encoded': {
                 $: body,
               },
@@ -196,6 +198,10 @@ export function Rss({ globalContent, customFields, arcSite, requestUri }) {
 Rss.propTypes = {
   customFields: PropTypes.shape({
     ...generatePropsForFeed('rss', PropTypes),
+    isOutputContentEncoded: PropTypes.bool.tag({
+      label: 'Output Content Encoded',
+      description: 'Include the content:encoded field in the RSS feed',
+    }),
   }),
 };
 Rss.label = 'RSS Standard - Arena';
