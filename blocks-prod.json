@@ -94,9 +94,9 @@
       },
       "wanted": {
         "siteProperties": {
-          "websiteDomain": "https://arenaholdings-wanted-prod.web.arc-cdn.net",
-          "feedDomainURL": "https://arenaholdings-wanted-prod.web.arc-cdn.net",
-          "resizerURL": "https://arenaholdings-wanted-prod.web.arc-cdn.net/resizer/v2",
+          "websiteDomain": "https://www.wantedonline.co.za",
+          "feedDomainURL": "https://www.wantedonline.co.za",
+          "resizerURL": "https://www.wantedonline.co.za/resizer/v2",
           "feedTitle": "WantedOnline",
           "feedLanguage": "en"
         }
