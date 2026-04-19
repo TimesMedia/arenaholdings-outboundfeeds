@@ -1,6 +1,7 @@
 import { BuildContent } from '@wpmedia/feeds-content-elements';
 import { BuildPromoItems } from '@wpmedia/feeds-promo-items';
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types';
+import { buildResizerURL } from '@wpmedia/feeds-resizer';
 import Consumer from 'fusion:consumer';
 import { ENVIRONMENT, resizerKey } from 'fusion:environment';
 import PropTypes from 'fusion:prop-types';
@@ -10,6 +11,7 @@ import URL from 'url';
 
 const jmespath = require('jmespath');
 
+
 const isAIPilotFeed = (config = {}) =>
   config.feedType === 'ai-pilot' ||
   (config.requestPath &&
@@ -18,16 +20,21 @@ const isAIPilotFeed = (config = {}) =>
 const rssTemplate = (elements, config) => {
   const aiPilot = isAIPilotFeed(config);
 
-  const includeEncoded =
-    config.isOutputContentEncoded !== false;
-
   return {
     rss: {
       '@xmlns:atom': 'http://www.w3.org/2005/Atom',
       '@xmlns:content': 'http://purl.org/rss/1.0/modules/content/',
-      '@xmlns:category': 'http://www.arena.com/rss/category/',
       '@xmlns:media': 'http://search.yahoo.com/mrss/',
-      '@version': '2.0',
+      '@xmlns:category': 'http://www.arena.com/rss/category/',
+      
+      ...(config.itemCredits && {
+        '@xmlns:dc': 'http://purl.org/dc/elements/1.1/',
+      }),
+
+      ...(config.channelUpdatePeriod &&
+        config.channelUpdatePeriod !== 'Exclude field' && {
+          '@xmlns:sy': 'http://purl.org/rss/1.0/modules/syndication/',
+        }),
 
       ...(aiPilot && {
         '@xmlns:dcterms': 'http://purl.org/dc/terms/',
@@ -35,10 +42,7 @@ const rssTemplate = (elements, config) => {
           'https://www.google.com/schemas/rss-licensed-news/',
       }),
 
-      ...(!aiPilot && {
-        '@xmlns:dc': 'http://purl.org/dc/elements/1.1/',
-        '@xmlns:sy': 'http://purl.org/rss/1.0/modules/syndication/',
-      }),
+      '@version': '2.0',
 
       channel: {
         title: { $: config.channelTitle || config.feedTitle },
@@ -62,8 +66,16 @@ const rssTemplate = (elements, config) => {
           language: config.channelLanguage,
         }),
 
+        ...(config.channelCategory && {
+          category: config.channelCategory,
+        }),
+
         ...(config.channelTTL && {
           ttl: config.channelTTL,
+        }),
+
+        ...(config.channelCopyright && {
+          copyright: config.channelCopyright,
         }),
 
         ...(config.channelUpdatePeriod &&
@@ -76,28 +88,28 @@ const rssTemplate = (elements, config) => {
             'sy:updateFrequency': config.channelUpdateFrequency,
           }),
 
+        ...(config.channelLogo && {
+          image: {
+            url: buildResizerURL(
+              config.channelLogo,
+              resizerKey,
+              config.resizerURL
+            ),
+            title: config.channelTitle || config.feedTitle,
+            link: config.domain,
+          },
+        }),
+
         item: elements.map(ans => {
+          let category;
+
           const url = `${config.domain}${
             ans.website_url || ans.canonical_url || ''
           }`;
 
           const sectionName = ans.taxonomy?.primary_section?.name;
+          const sectionId = ans.taxonomy?.primary_section?._id;
           const isSponsored = ans.owner?.sponsored;
-
-          const author = config.itemCredits
-            ? jmespath.search(ans, config.itemCredits)
-            : [];
-
-          const body = config.rssBuildContent?.parse(
-            ans.content_elements || [],
-            config.includeContent,
-            config.domain,
-            config.resizerKey,
-            config.resizerURL,
-            config.resizerWidth,
-            config.resizerHeight,
-            config.videoSelect,
-          );
 
           const img = config.includePromo
             ? config.PromoItems?.mediaTag({
@@ -114,7 +126,25 @@ const rssTemplate = (elements, config) => {
               })
             : null;
 
-          return {
+          const body =
+            config.includeContent !== 0
+              ? config.rssBuildContent?.parse(
+                  ans.content_elements || [],
+                  config.includeContent,
+                  config.domain,
+                  config.resizerKey,
+                  config.resizerURL,
+                  config.resizerWidth,
+                  config.resizerHeight,
+                  config.videoSelect
+                )
+              : null;
+
+          const author =
+            config.itemCredits &&
+            jmespath.search(ans, config.itemCredits);
+
+          const item = {
             ...(config.itemTitle && {
               title: {
                 $: jmespath.search(ans, config.itemTitle) || '',
@@ -128,11 +158,12 @@ const rssTemplate = (elements, config) => {
               '@isPermaLink': true,
             },
 
-            ...(author.length && {
-              [aiPilot ? 'dcterms:creator' : 'dc:creator']: {
-                $: author.join(', '),
-              },
-            }),
+            ...(author &&
+              author.length && {
+                dc: {
+                  creator: { $: author.join(', ') },
+                },
+              }),
 
             ...(config.itemDescription && {
               description: {
@@ -144,18 +175,24 @@ const rssTemplate = (elements, config) => {
               .utc(ans[config.pubDate])
               .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
 
-            ...(sectionName && {
-              category: sectionName,
-            }),
-
-            ...(img && { '#': img }),
+            ...(config.itemCategory &&
+              (category = jmespath.search(ans, config.itemCategory)) &&
+              category && {
+                category,
+              }),
 
             ...(body &&
-              includeEncoded && {
+              {
                 'content:encoded': {
                   $: body,
                 },
               }),
+
+            ...(config.includePromo && img && { '#': img }),
+
+            ...(sectionName && { category: sectionName }),
+            ...(sectionId && { 'category:id': sectionId }),
+            ...(isSponsored && { 'category:sponsored': isSponsored }),
 
             ...(aiPilot && {
               'licensed_news:publication': {
@@ -167,19 +204,21 @@ const rssTemplate = (elements, config) => {
                 .utc(ans[config.pubDate])
                 .format(),
             }),
-
-            ...(aiPilot &&
-              isSponsored && {
-                'licensed_news:genre': 'Other',
-              }),
           };
+
+          return item;
         }),
       },
     },
   };
 };
 
-export function Rss({ globalContent, customFields, arcSite, requestUri }) {
+export function Rss({
+  globalContent,
+  customFields,
+  arcSite,
+  requestUri,
+}) {
   let { resizerURL = '' } = getProperties(arcSite);
 
   const {
@@ -196,24 +235,29 @@ export function Rss({ globalContent, customFields, arcSite, requestUri }) {
   const PromoItems = new BuildPromoItems();
   const rssBuildContent = new BuildContent();
 
-  const { width = 0, height = 0 } = customFields.resizerKVP || {};
+  const { width = 0, height = 0 } =
+    customFields.resizerKVP || {};
 
-  return rssTemplate(globalContent.content_elements || [], {
-    ...customFields,
+  return rssTemplate(
+    globalContent.content_elements || [],
+    {
+      ...customFields,
 
-    requestPath,
-    resizerURL,
-    resizerWidth: width,
-    resizerHeight: height,
+      requestPath,
+      resizerURL,
+      resizerWidth: width,
+      resizerHeight: height,
 
-    domain: feedDomainURL,
-    feedTitle,
-    channelLanguage: customFields.channelLanguage || feedLanguage,
+      domain: feedDomainURL,
+      feedTitle,
+      channelLanguage:
+        customFields.channelLanguage || feedLanguage,
 
-    resizerKey,
-    PromoItems,
-    rssBuildContent,
-  });
+      resizerKey,
+      PromoItems,
+      rssBuildContent,
+    }
+  );
 }
 
 Rss.propTypes = {
@@ -232,7 +276,7 @@ Rss.propTypes = {
   }),
 };
 
-Rss.label = 'RSS Standard + AI Pilot - Arena Block';
+Rss.label = 'RSS Standard + AI Pilot (Stable)';
 Rss.icon = 'arc-rss';
 
 export default Consumer(Rss);
