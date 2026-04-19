@@ -1,4 +1,4 @@
 
-import { XmlOutput } from '@wpmedia/feeds-xml-output'
+import { XmlOutput } from '@wpmedia/feeds-xml-output';
 
-export default XmlOutput
+export default XmlOutput;
