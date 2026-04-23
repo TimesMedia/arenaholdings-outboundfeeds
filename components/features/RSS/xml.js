@@ -8,274 +8,183 @@ import PropTypes from 'fusion:prop-types';
 import getProperties from 'fusion:properties';
 import moment from 'moment';
 import URL from 'url';
-
 const jmespath = require('jmespath');
 
-const isAIPilotFeed = (config = {}) =>
-  config.feedType === 'ai-pilot' ||
-  (config.requestPath &&
-    config.requestPath.includes('google-news-ai-pilot-feed'));
+const rssTemplate = (
+  elements,
+  {
+    channelTitle,
+    channelDescription,
+    channelCopyright,
+    channelTTL,
+    channelUpdatePeriod,
+    channelUpdateFrequency,
+    channelCategory,
+    channelLogo,
+    imageTitle,
+    imageCaption,
+    imageCredits,
+    itemTitle,
+    itemDescription,
+    pubDate,
+    itemCredits,
+    itemCategory,
+    includePromo,
+    includeContent,
+    videoSelect,
+    requestPath,
+    resizerURL,
+    resizerWidth,
+    resizerHeight,
+    promoItemsJmespath,
+    domain,
+    feedTitle,
+    channelLanguage,
+    rssBuildContent,
+    PromoItems,
+    isOutputContentEncoded,
+  },
+) => {
+  const isGoogleAiPilot = requestPath && requestPath.includes('google-news-ai-pilot-feed');
 
-const rssTemplate = (elements, config) => {
-  const aiPilot = isAIPilotFeed(config);
+  if (isGoogleAiPilot) {
+    return {
+      rss: {
+        '@xmlns:content': 'http://purl.org/rss/1.0/modules/content/',
+        '@xmlns:dcterms': 'http://purl.org/dc/terms/',
+        '@xmlns:dc': 'http://purl.org/dc/elements/1.1/',
+        '@xmlns:media': 'http://search.yahoo.com/mrss/',
+        '@xmlns:atom': 'http://www.w3.org/2005/Atom',
+        '@xmlns:licensed_news': 'https://www.google.com/schemas/rss-licensed-news/',
+        '@version': '2.0',
+        channel: {
+          title: { $: channelTitle || feedTitle },
+          link: domain,
+          'atom:link': {
+            '@href': `${domain}${requestPath}`,
+            '@rel': 'self',
+            '@type': 'application/rss+xml',
+          },
+          description: { $: channelDescription || `${feedTitle} News Feed` },
+          lastBuildDate: moment.utc(new Date()).format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
+          ...(channelLanguage && { language: channelLanguage }),
+          item: elements.map(ans => {
+            const url = `${domain}${ans.website_url || ans.canonical_url || ''}`;
+            const author = jmespath.search(ans, itemCredits);
+            const body = rssBuildContent.parse(ans.content_elements || [], includeContent, domain, resizerKey, resizerURL, resizerWidth, resizerHeight, videoSelect);
+            const img = PromoItems.mediaTag({ ans, promoItemsJmespath, resizerKey, resizerURL, resizerWidth, resizerHeight, imageTitle, imageCaption, imageCredits, videoSelect });
+
+            return {
+              title: { $: jmespath.search(ans, itemTitle) || '' },
+              link: url,
+              ...(itemDescription && { description: { $: jmespath.search(ans, itemDescription) || '' } }),
+              guid: { '#': url, '@isPermaLink': true },
+              pubDate: moment.utc(ans[pubDate]).format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
+              ...(ans.display_date && { 'dcterms:modified': moment.utc(ans.display_date).format('YYYY-MM-DDTHH:mm:ssZ') }),
+              ...(author && author.length && { 'dc:creator': { $: author.join(', ') } }),
+              ...(body && { 'content:encoded': { $: body } }),
+              ...(includePromo && img && { '#': img }),
+            };
+          }),
+        },
+      },
+    };
+  }
 
   return {
     rss: {
       '@xmlns:atom': 'http://www.w3.org/2005/Atom',
       '@xmlns:content': 'http://purl.org/rss/1.0/modules/content/',
-      '@xmlns:media': 'http://search.yahoo.com/mrss/',
       '@xmlns:category': 'http://www.arena.com/rss/category/',
-      
-      ...(config.itemCredits && {
-        '@xmlns:dc': 'http://purl.org/dc/elements/1.1/',
-      }),
-
-      ...(config.channelUpdatePeriod &&
-        config.channelUpdatePeriod !== 'Exclude field' && {
-          '@xmlns:sy': 'http://purl.org/rss/1.0/modules/syndication/',
-        }),
-
-      ...(aiPilot && {
-        '@xmlns:dcterms': 'http://purl.org/dc/terms/',
-        '@xmlns:licensed_news':
-          'https://www.google.com/schemas/rss-licensed-news/',
-      }),
-
+      ...(itemCredits && { '@xmlns:dc': 'http://purl.org/dc/elements/1.1/' }),
+      ...(channelUpdatePeriod && channelUpdatePeriod !== 'Exclude field' && { '@xmlns:sy': 'http://purl.org/rss/1.0/modules/syndication/' }),
       '@version': '2.0',
-
+      ...(includePromo && { '@xmlns:media': 'http://search.yahoo.com/mrss/' }),
       channel: {
-        title: { $: config.channelTitle || config.feedTitle },
-        link: config.domain,
-
-        'atom:link': {
-          '@href': `${config.domain}${config.requestPath}`,
-          '@rel': 'self',
-          '@type': 'application/rss+xml',
-        },
-
-        description: {
-          $: config.channelDescription || `${config.feedTitle} News Feed`,
-        },
-
-        lastBuildDate: moment
-          .utc()
-          .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
-
-        ...(config.channelLanguage && {
-          language: config.channelLanguage,
+        title: { $: channelTitle || feedTitle },
+        link: `${domain}`,
+        'atom:link': { '@href': `${domain}${requestPath}`, '@rel': 'self', '@type': 'application/rss+xml' },
+        description: { $: channelDescription || `${feedTitle} News Feed` },
+        lastBuildDate: moment.utc(new Date()).format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
+        ...(channelLanguage && channelLanguage.toLowerCase() !== 'exclude' && { language: channelLanguage }),
+        ...(channelCategory && { category: channelCategory }),
+        ...(channelCopyright && { copyright: channelCopyright }),
+        ...(channelTTL && { ttl: channelTTL }),
+        ...(channelUpdatePeriod && channelUpdatePeriod !== 'Exclude field' && { 'sy:updatePeriod': channelUpdatePeriod }),
+        ...(channelUpdateFrequency && channelUpdatePeriod !== 'Exclude field' && { 'sy:updateFrequency': channelUpdateFrequency }),
+        ...(channelLogo && {
+          image: { url: buildResizerURL(channelLogo, resizerKey, resizerURL), title: channelTitle || feedTitle, link: domain },
         }),
-
-        ...(config.channelCategory && {
-          category: config.channelCategory,
-        }),
-
-        ...(config.channelTTL && {
-          ttl: config.channelTTL,
-        }),
-
-        ...(config.channelCopyright && {
-          copyright: config.channelCopyright,
-        }),
-
-        ...(config.channelUpdatePeriod &&
-          !aiPilot && {
-            'sy:updatePeriod': config.channelUpdatePeriod,
-          }),
-
-        ...(config.channelUpdateFrequency &&
-          !aiPilot && {
-            'sy:updateFrequency': config.channelUpdateFrequency,
-          }),
-
-        ...(config.channelLogo && {
-          image: {
-            url: buildResizerURL(
-              config.channelLogo,
-              resizerKey,
-              config.resizerURL
-            ),
-            title: config.channelTitle || config.feedTitle,
-            link: config.domain,
-          },
-        }),
-
         item: elements.map(ans => {
-          let category;
-
-          const url = `${config.domain}${
-            ans.website_url || ans.canonical_url || ''
-          }`;
-
+          let author, body, category;
+          const url = `${domain}${ans.website_url || ans.canonical_url || ''}`;
           const sectionName = ans.taxonomy?.primary_section?.name;
           const sectionId = ans.taxonomy?.primary_section?._id;
           const isSponsored = ans.owner?.sponsored;
+          const img = PromoItems.mediaTag({ ans, promoItemsJmespath, resizerKey, resizerURL, resizerWidth, resizerHeight, imageTitle, imageCaption, imageCredits, videoSelect });
 
-          const img = config.includePromo
-            ? config.PromoItems?.mediaTag({
-                ans,
-                promoItemsJmespath: config.promoItemsJmespath,
-                resizerKey: config.resizerKey,
-                resizerURL: config.resizerURL,
-                resizerWidth: config.resizerWidth,
-                resizerHeight: config.resizerHeight,
-                imageTitle: config.imageTitle,
-                imageCaption: config.imageCaption,
-                imageCredits: config.imageCredits,
-                videoSelect: config.videoSelect,
-              })
-            : null;
-
-          const body =
-            config.includeContent !== 0
-              ? config.rssBuildContent?.parse(
-                  ans.content_elements || [],
-                  config.includeContent,
-                  config.domain,
-                  config.resizerKey,
-                  config.resizerURL,
-                  config.resizerWidth,
-                  config.resizerHeight,
-                  config.videoSelect
-                )
-              : null;
-
-          const author =
-            config.itemCredits &&
-            jmespath.search(ans, config.itemCredits);
-
-          const item = {
-            ...(config.itemTitle && {
-              title: {
-                $: jmespath.search(ans, config.itemTitle) || '',
-              },
-            }),
-
+          return {
+            ...(itemTitle && { title: { $: jmespath.search(ans, itemTitle) || '' } }),
             link: url,
-
-            guid: {
-              '#': url,
-              '@isPermaLink': true,
-            },
-
-            ...(author &&
-              author.length && {
-                dc: {
-                  creator: { $: author.join(', ') },
-                },
-              }),
-
-            ...(config.itemDescription && {
-              description: {
-                $: jmespath.search(ans, config.itemDescription) || '',
-              },
-            }),
-
-            pubDate: moment
-              .utc(ans[config.pubDate])
-              .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
-
-            ...(config.itemCategory &&
-              (category = jmespath.search(ans, config.itemCategory)) &&
-              category && {
-                category,
-              }),
-
-            ...(body &&
-              {
-                'content:encoded': {
-                  $: body,
-                },
-              }),
-
-            ...(config.includePromo && img && { '#': img }),
-
+            guid: { '#': url, '@isPermaLink': true },
+            ...(itemCredits && (author = jmespath.search(ans, itemCredits)) && author.length && { 'dc:creator': { $: author.join(', ') } }),
+            ...(itemDescription && { description: { $: jmespath.search(ans, itemDescription) || '' } }),
+            pubDate: moment.utc(ans[pubDate]).format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
+            ...(itemCategory && (category = jmespath.search(ans, itemCategory)) && category && { category: category }),
+            ...(includeContent !== 0 && (body = rssBuildContent.parse(ans.content_elements || [], includeContent, domain, resizerKey, resizerURL, resizerWidth, resizerHeight, videoSelect)) && body && isOutputContentEncoded && { 'content:encoded': { $: body } }),
+            ...(includePromo && img && { '#': img }),
             ...(sectionName && { category: sectionName }),
             ...(sectionId && { 'category:id': sectionId }),
             ...(isSponsored && { 'category:sponsored': isSponsored }),
-
-            ...(aiPilot && {
-              'licensed_news:publication': {
-                'licensed_news:name': config.feedTitle,
-                'licensed_news:language':
-                  config.channelLanguage || 'en',
-              },
-              'licensed_news:publication_date': moment
-                .utc(ans[config.pubDate])
-                .format(),
-            }),
           };
-
-          return item;
         }),
       },
     },
   };
 };
 
-export function Rss({
-  globalContent,
-  customFields,
-  arcSite,
-  requestUri,
-}) {
-  let { resizerURL = '' } = getProperties(arcSite);
-
+export function Rss({ globalContent, customFields, arcSite, requestUri }) {
   const {
     resizerURLs = {},
-    feedDomainURL = 'https://localhost.com',
+    feedDomainURL = 'http://localhost.com',
     feedTitle = '',
     feedLanguage = '',
   } = getProperties(arcSite);
-
-  resizerURL = resizerURLs?.[ENVIRONMENT] || resizerURL;
-
+  
+  const resizerURL = resizerURLs?.[ENVIRONMENT] || getProperties(arcSite).resizerURL || '';
+  const channelLanguage = customFields.channelLanguage || feedLanguage;
   const requestPath = new URL.URL(requestUri, feedDomainURL).pathname;
+  
+  const isGoogleAiPilot = requestPath.includes('google-news-ai-pilot-feed');
+  const { width = isGoogleAiPilot ? 1200 : 0, height = 0 } = customFields.resizerKVP || {};
 
   const PromoItems = new BuildPromoItems();
   const rssBuildContent = new BuildContent();
 
-  const { width = 0, height = 0 } =
-    customFields.resizerKVP || {};
-
-  return rssTemplate(
-    globalContent.content_elements || [],
-    {
-      ...customFields,
-
-      requestPath,
-      resizerURL,
-      resizerWidth: width,
-      resizerHeight: height,
-
-      domain: feedDomainURL,
-      feedTitle,
-      channelLanguage:
-        customFields.channelLanguage || feedLanguage,
-
-      resizerKey,
-      PromoItems,
-      rssBuildContent,
-    }
-  );
+  return rssTemplate(globalContent.content_elements || [], {
+    ...customFields,
+    requestPath,
+    resizerURL,
+    resizerWidth: width,
+    resizerHeight: height,
+    domain: feedDomainURL,
+    feedTitle,
+    channelLanguage,
+    rssBuildContent,
+    PromoItems,
+  });
 }
 
 Rss.propTypes = {
   customFields: PropTypes.shape({
     ...generatePropsForFeed('rss', PropTypes),
-
-    feedType: PropTypes.string.tag({
-      label: 'Feed Type (standard | ai-pilot)',
-      defaultValue: 'standard',
-    }),
-
     isOutputContentEncoded: PropTypes.bool.tag({
       label: 'Output Content Encoded',
-      defaultValue: true,
+      default: true,
     }),
   }),
 };
 
-Rss.label = 'RSS Standard + AI Pilot (Stable)';
+Rss.label = 'RSS Standard - Arena';
 Rss.icon = 'arc-rss';
-
 export default Consumer(Rss);
