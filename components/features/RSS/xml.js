@@ -1,9 +1,9 @@
 import Consumer from 'fusion:consumer';
-import URL from 'url';
 import getProperties from 'fusion:properties';
+import URL from 'url';
 
-import standardRSS from './standard';
 import googleAiPilotRSS from './googleAiPilot';
+import standardRSS from './standard';
 
 const RssRouter = props => {
   const { arcSite, requestUri } = props;
