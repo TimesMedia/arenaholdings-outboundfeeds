@@ -1,17 +1,22 @@
-    {
-   "displayName": "Local Developer",
-   "permissions": {
-     "PageBuilder": {
-       "global": [
-         "W",
-         "D",
-         "P",
-         "VRP",
-         "ERP",
-         "DT",
-         "RE",
-         "RD"
-       ]
-     }
-   }
- }
+{
+  "displayName": "Local Fusion Developer",
+  "tracking": false,
+  "preferences": {
+    "tracking": false
+  },
+  "permissions": {
+    "PageBuilder": {
+      "global": [
+        "AAPP",
+        "W",
+        "D",
+        "P",
+        "VRP",
+        "ERP",
+        "DT",
+        "RE",
+        "RD"
+      ]
+    }
+  }
+}

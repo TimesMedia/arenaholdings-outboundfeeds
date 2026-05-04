@@ -18,7 +18,7 @@
   "author": "",
   "license": "wapo/arc",
   "devDependencies": {
-    "@arc-fusion/cli": "^3.2.0",
+    "@arc-fusion/cli": "^3.3.0",
     "@babel/eslint-parser": "^7.28.0",
     "axios": "^1.6.7",
     "dotenv": "^8.2.0",
