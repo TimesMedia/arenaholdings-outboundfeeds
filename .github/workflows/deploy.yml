@@ -49,5 +49,5 @@ jobs:
           api-key: '${{ secrets.ARC_ACCESS_TOKEN }}'
           api-hostname: ${{ secrets.ORG_ENV_DOMAIN }}
           bundle-prefix: bundle
-          retry-delay: 60
+          retry-delay: 30
           retry-count: 10
